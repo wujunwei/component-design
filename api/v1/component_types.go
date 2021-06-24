@@ -20,22 +20,45 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
+const (
+	StatefulSet = "statefulset"
+	Deployment  = "deployment"
+	CloneSet    = "cloneset"
+
+	ComponentInstalled  ComponentPhase = "installed"
+	ComponentFail       ComponentPhase = "failed"
+	ComponentProcessing ComponentPhase = "processing"
+)
+
+type ComponentPhase string
+
+type Trait struct {
+}
+
+type Source struct {
+	//Scheme default "https"
+	Scheme     string `json:"scheme,omitempty"`
+	URI        string `json:"uri,omitempty"`
+	SecretName string `json:"secretname,omitempty"`
+}
 
 // ComponentSpec defines the desired state of Component
 type ComponentSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	WorkloadType string            `json:"workloadtype"` // needed ?
+	Properties   map[string]string `json:"properties,omitempty"`
+	Template     Source            `json:"template,omitempty"`
+	Traits       []Trait
+}
 
-	// Foo is an example field of Component. Edit component_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+type ComponentCondition struct {
 }
 
 // ComponentStatus defines the observed state of Component
 type ComponentStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	Phase      ComponentPhase       `json:"phase,omitempty"`
+	Conditions []ComponentCondition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type"`
+	Message    string               `json:"message,omitempty" protobuf:"bytes,3,opt,name=message"`
+	Reason     string               `json:"reason,omitempty" protobuf:"bytes,4,opt,name=reason"`
 }
 
 //+kubebuilder:object:root=true
