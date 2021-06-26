@@ -30,7 +30,9 @@ type ComponentTemplate struct {
 
 // ApplicationSpec defines the desired state of Application
 type ApplicationSpec struct {
-	Components []ComponentTemplate `json:"components,omitempty"`
+	//MainComponent show the name of the main component of this application
+	MainComponent string              `json:"main,omitempty"`
+	Components    []ComponentTemplate `json:"components,omitempty"`
 }
 
 // ApplicationStatus defines the observed state of Application

@@ -1,0 +1,7 @@
+apiVersion: design.design.component.io/v1
+kind: ComponentDefine
+metadata:
+  name: componentdefine-sample
+spec:
+  # Add fields here
+  foo: bar

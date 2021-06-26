@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+option go_package = "component/service";
+
+message PingMessage {
+   google.protobuf.Timestamp T = 1;
+  string Name =2;
+}
+
+message PoneMessage {
+  google.protobuf.Timestamp T = 1;
+  bool Healthy = 2;
+}
+
+service Core {
+  rpc Ping(PingMessage) returns(PoneMessage);
+}

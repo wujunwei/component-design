@@ -18,6 +18,7 @@ package v1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 const (
@@ -33,21 +34,16 @@ const (
 type ComponentPhase string
 
 type Trait struct {
-}
-
-type Source struct {
-	//Scheme default "https"
-	Scheme     string `json:"scheme,omitempty"`
-	URI        string `json:"uri,omitempty"`
-	SecretName string `json:"secretname,omitempty"`
+	Name       string               `json:"name"`
+	Properties runtime.RawExtension `json:"properties,omitempty"`
 }
 
 // ComponentSpec defines the desired state of Component
 type ComponentSpec struct {
-	WorkloadType string            `json:"workloadtype"` // needed ?
-	Properties   map[string]string `json:"properties,omitempty"`
-	Template     Source            `json:"template,omitempty"`
-	Traits       []Trait
+	ComponentType string               `json:"type"` // needed ?
+	Properties    runtime.RawExtension `json:"properties,omitempty"`
+	TemplateInfo  runtime.RawExtension `json:"template,omitempty"`
+	Traits        []Trait
 }
 
 type ComponentCondition struct {
