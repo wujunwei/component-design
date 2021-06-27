@@ -34,7 +34,7 @@ type Workload struct {
 type Service struct {
 	Ports       []v1.ServicePort `json:"ports,omitempty" patchStrategy:"merge" patchMergeKey:"port" protobuf:"bytes,1,rep,name=ports"`
 	Type        v1.ServiceType   `json:"type"`
-	ExternalIPs []string         `json:"externalIPs,omitempty" protobuf:"bytes,5,rep,name=externalIPs"`
+	ExternalIPs []string         `json:"externalIPs,omitempty" protobuf:"bytes,3,rep,name=externalIPs"`
 }
 
 // ComponentDefineSpec defines the desired state of ComponentDefine

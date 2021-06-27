@@ -2,17 +2,66 @@ syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
 option go_package = "component/service";
-
 message PingMessage {
-   google.protobuf.Timestamp T = 1;
-  string Name =2;
+  google.protobuf.Timestamp T = 1;
+  string Name = 2;
 }
 
-message PoneMessage {
+
+message OK {
   google.protobuf.Timestamp T = 1;
   bool Healthy = 2;
 }
+message Component{
+  string Name = 1;
+  string Namespace = 2;
+  bytes Template = 3;
+  bytes Properties = 4;
+  repeated Trait trait = 5;
+  bool DryRun = 6;
+  string Version = 7;
+}
+message ComponentInfo{
+  string Name = 1;
+  string Namespace = 2;
+}
+
+message ComponentHealthyInfo{
+  string Name = 1;
+  string Namespace = 2;
+  int32 DesiredReplicas = 3;
+  int32 AvailableReplicas = 4;
+}
+message Trait{
+
+}
+
+message API {
+  string Host = 1;
+  string Scheme = 2;
+  string URI = 3;
+}
+
+message Auth {
+  string Username = 1;
+  string Password = 2;
+  string BearerToken = 3;
+}
+
+message ServerInfo {
+  API Api = 1;
+  Auth auth = 2;
+}
 
 service Core {
-  rpc Ping(PingMessage) returns(PoneMessage);
+  rpc Ping(PingMessage) returns(OK);
+  rpc Install(Component) returns(OK);
+  rpc Uninstall(ComponentInfo) returns(OK);
+  rpc ComponentExist(ComponentInfo) returns(ComponentHealthyInfo);
+  rpc Register(ServerInfo) returns(OK);
 }
+
+service Traits{
+
+}
+

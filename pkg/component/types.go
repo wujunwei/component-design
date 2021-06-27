@@ -2,12 +2,6 @@ package component
 
 import "sigs.k8s.io/controller-runtime/pkg/client"
 
-//todo change to crd definition communication by grpc
-
-func Register(name string) {
-
-}
-
 //Workload 表示具体承载组件的工作负载的类型，可能的值： Deployment StatefulSet CloneSet 等等只要实现对应的接口即可
 type Workload interface {
 	Name() string
