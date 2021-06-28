@@ -84,6 +84,8 @@ deploy: manifests kustomize ## Deploy controller to the K8s cluster specified in
 undeploy: ## Undeploy controller from the K8s cluster specified in ~/.kube/config.
 	$(KUSTOMIZE) build config/default | kubectl delete -f -
 
+protoc:
+	protoc --go_out=./pkg/component/service --go_opt=paths=source_relative  --proto_path=./proto --go-grpc_out=./pkg/component/service --go-grpc_opt=paths=source_relative  ./proto/component_service.proto
 
 CONTROLLER_GEN = $(shell pwd)/bin/controller-gen
 controller-gen: ## Download controller-gen locally if necessary.

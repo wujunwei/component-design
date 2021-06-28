@@ -7,6 +7,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -20,6 +21,9 @@ const _ = grpc.SupportPackageIsVersion7
 type CoreClient interface {
 	Ping(ctx context.Context, in *PingMessage, opts ...grpc.CallOption) (*OK, error)
 	Install(ctx context.Context, in *Component, opts ...grpc.CallOption) (*OK, error)
+	Upgrade(ctx context.Context, in *Component, opts ...grpc.CallOption) (*OK, error)
+	Rollback(ctx context.Context, in *Component, opts ...grpc.CallOption) (*OK, error)
+	List(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ComponentList, error)
 	Uninstall(ctx context.Context, in *ComponentInfo, opts ...grpc.CallOption) (*OK, error)
 	ComponentExist(ctx context.Context, in *ComponentInfo, opts ...grpc.CallOption) (*ComponentHealthyInfo, error)
 	Register(ctx context.Context, in *ServerInfo, opts ...grpc.CallOption) (*OK, error)
@@ -45,6 +49,33 @@ func (c *coreClient) Ping(ctx context.Context, in *PingMessage, opts ...grpc.Cal
 func (c *coreClient) Install(ctx context.Context, in *Component, opts ...grpc.CallOption) (*OK, error) {
 	out := new(OK)
 	err := c.cc.Invoke(ctx, "/Core/Install", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) Upgrade(ctx context.Context, in *Component, opts ...grpc.CallOption) (*OK, error) {
+	out := new(OK)
+	err := c.cc.Invoke(ctx, "/Core/Upgrade", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) Rollback(ctx context.Context, in *Component, opts ...grpc.CallOption) (*OK, error) {
+	out := new(OK)
+	err := c.cc.Invoke(ctx, "/Core/Rollback", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *coreClient) List(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ComponentList, error) {
+	out := new(ComponentList)
+	err := c.cc.Invoke(ctx, "/Core/List", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -84,6 +115,9 @@ func (c *coreClient) Register(ctx context.Context, in *ServerInfo, opts ...grpc.
 type CoreServer interface {
 	Ping(context.Context, *PingMessage) (*OK, error)
 	Install(context.Context, *Component) (*OK, error)
+	Upgrade(context.Context, *Component) (*OK, error)
+	Rollback(context.Context, *Component) (*OK, error)
+	List(context.Context, *emptypb.Empty) (*ComponentList, error)
 	Uninstall(context.Context, *ComponentInfo) (*OK, error)
 	ComponentExist(context.Context, *ComponentInfo) (*ComponentHealthyInfo, error)
 	Register(context.Context, *ServerInfo) (*OK, error)
@@ -99,6 +133,15 @@ func (UnimplementedCoreServer) Ping(context.Context, *PingMessage) (*OK, error) 
 }
 func (UnimplementedCoreServer) Install(context.Context, *Component) (*OK, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Install not implemented")
+}
+func (UnimplementedCoreServer) Upgrade(context.Context, *Component) (*OK, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Upgrade not implemented")
+}
+func (UnimplementedCoreServer) Rollback(context.Context, *Component) (*OK, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Rollback not implemented")
+}
+func (UnimplementedCoreServer) List(context.Context, *emptypb.Empty) (*ComponentList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
 }
 func (UnimplementedCoreServer) Uninstall(context.Context, *ComponentInfo) (*OK, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Uninstall not implemented")
@@ -154,6 +197,60 @@ func _Core_Install_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CoreServer).Install(ctx, req.(*Component))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_Upgrade_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Component)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).Upgrade(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Core/Upgrade",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).Upgrade(ctx, req.(*Component))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_Rollback_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Component)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).Rollback(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Core/Rollback",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).Rollback(ctx, req.(*Component))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Core_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CoreServer).List(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Core/List",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CoreServer).List(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -228,6 +325,18 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Core_Install_Handler,
 		},
 		{
+			MethodName: "Upgrade",
+			Handler:    _Core_Upgrade_Handler,
+		},
+		{
+			MethodName: "Rollback",
+			Handler:    _Core_Rollback_Handler,
+		},
+		{
+			MethodName: "List",
+			Handler:    _Core_List_Handler,
+		},
+		{
 			MethodName: "Uninstall",
 			Handler:    _Core_Uninstall_Handler,
 		},
@@ -241,7 +350,7 @@ var Core_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/component_service.proto",
+	Metadata: "component_service.proto",
 }
 
 // TraitsClient is the client API for Traits service.
@@ -290,5 +399,5 @@ var Traits_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*TraitsServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams:     []grpc.StreamDesc{},
-	Metadata:    "proto/component_service.proto",
+	Metadata:    "component_service.proto",
 }

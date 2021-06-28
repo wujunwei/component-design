@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
 option go_package = "component/service";
 message PingMessage {
   google.protobuf.Timestamp T = 1;
@@ -20,6 +21,11 @@ message Component{
   repeated Trait trait = 5;
   bool DryRun = 6;
   string Version = 7;
+}
+
+message ComponentList{
+  repeated Component items=1;
+  int32 Total = 2;
 }
 message ComponentInfo{
   string Name = 1;
@@ -56,6 +62,9 @@ message ServerInfo {
 service Core {
   rpc Ping(PingMessage) returns(OK);
   rpc Install(Component) returns(OK);
+  rpc Upgrade(Component) returns(OK);
+  rpc Rollback(Component) returns(OK);
+  rpc List(google.protobuf.Empty)returns(ComponentList);
   rpc Uninstall(ComponentInfo) returns(OK);
   rpc ComponentExist(ComponentInfo) returns(ComponentHealthyInfo);
   rpc Register(ServerInfo) returns(OK);
