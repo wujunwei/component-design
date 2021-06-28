@@ -3,5 +3,18 @@ kind: Component
 metadata:
   name: component-sample
 spec:
-  # Add fields here
-  foo: bar
+  type: "helm"
+  properties: ## 对应 helm中 values.yaml
+    image:
+      pullPolicy: IfNotPresent
+    user: admin
+  template:
+    package: redis/redis
+    tag: 1.0.0
+  traits:
+    - name: sidecar
+      properties:
+        image: mysql
+    - name: upgrade
+      properties:
+        newVersion: 2.0.0

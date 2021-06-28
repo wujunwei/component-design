@@ -34,16 +34,19 @@ const (
 type ComponentPhase string
 
 type Trait struct {
-	Name       string               `json:"name"`
+	Name string `json:"name"`
+	// +kubebuilder:pruning:PreserveUnknownFields
 	Properties runtime.RawExtension `json:"properties,omitempty"`
 }
 
 // ComponentSpec defines the desired state of Component
 type ComponentSpec struct {
-	ComponentType string               `json:"type"` // needed ?
-	Properties    runtime.RawExtension `json:"properties,omitempty"`
-	TemplateInfo  runtime.RawExtension `json:"template,omitempty"`
-	Traits        []Trait
+	ComponentType string `json:"type"`
+	// +kubebuilder:pruning:PreserveUnknownFields
+	Properties runtime.RawExtension `json:"properties,omitempty"`
+	// +kubebuilder:pruning:PreserveUnknownFields
+	TemplateInfo runtime.RawExtension `json:"template,omitempty"`
+	Traits       []Trait              `json:"traits,omitempty"`
 }
 
 type ComponentCondition struct {

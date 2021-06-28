@@ -24,8 +24,8 @@ import (
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
 type ComponentTemplate struct {
-	metav1.ObjectMeta
-	ComponentSpec
+	Name          string `json:"name"`
+	ComponentSpec `json:",inline"`
 }
 
 // ApplicationSpec defines the desired state of Application

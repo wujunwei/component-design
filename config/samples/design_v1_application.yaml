@@ -2,6 +2,27 @@ apiVersion: design.design.component.io/v1
 kind: Application
 metadata:
   name: application-sample
+  namespace: application-test
 spec:
-  # Add fields here
-  foo: bar
+  main: "redis"
+  components:
+    - name: "redis"
+      type: "helm"
+      properties: ## 对应 helm中 values.yaml
+        image:
+          pullPolicy: IfNotPresent
+        user: admin
+      template:
+        package: redis/redis
+        tag: 1.0.0
+      traits:
+        - name: sidecar
+          properties:
+            image: mysql
+        - name: upgrade
+          properties:
+            newVersion: 2.0.0
+        - name: monitor
+          properties:
+            expose: svc-monitor:9001
+

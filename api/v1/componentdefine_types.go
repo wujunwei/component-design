@@ -26,21 +26,23 @@ import (
 
 type Workload struct {
 	//WorkloadType 'deployment' by default
-	WorkloadType string `json:"type,omitempty"`
-	Replicas     *int32 `json:"replicas,omitempty" `
+	WorkloadType   string `json:"type,omitempty"`
+	Replicas       *int32 `json:"replicas,omitempty" `
+	UpdateStrategy string `json:"updatestrategy"`
 	// Template describes the pods that will be created.
 	Template v1.PodTemplateSpec `json:"template" protobuf:"bytes,3,opt,name=template"`
 }
 type Service struct {
-	Ports       []v1.ServicePort `json:"ports,omitempty" patchStrategy:"merge" patchMergeKey:"port" protobuf:"bytes,1,rep,name=ports"`
-	Type        v1.ServiceType   `json:"type"`
-	ExternalIPs []string         `json:"externalIPs,omitempty" protobuf:"bytes,3,rep,name=externalIPs"`
+	Ports        []v1.ServicePort `json:"ports,omitempty" patchStrategy:"merge" patchMergeKey:"port"`
+	Type         v1.ServiceType   `json:"type"`
+	ExternalName string           `json:"externalIPs,omitempty"`
 }
 
 // ComponentDefineSpec defines the desired state of ComponentDefine
 type ComponentDefineSpec struct {
 	Workload Workload          `json:"workload"`
-	Selector map[string]string `json:"selector,omitempty" protobuf:"bytes,2,rep,name=selector"`
+	Service  Service           `json:"service"`
+	Selector map[string]string `json:"selector,omitempty"`
 }
 
 // ComponentDefineStatus defines the observed state of ComponentDefine

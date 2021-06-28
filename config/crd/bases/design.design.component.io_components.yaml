@@ -36,13 +36,42 @@ spec:
           spec:
             description: ComponentSpec defines the desired state of Component
             properties:
-              foo:
-                description: Foo is an example field of Component. Edit component_types.go
-                  to remove/update
+              properties:
+                type: object
+                x-kubernetes-preserve-unknown-fields: true
+              template:
+                type: object
+                x-kubernetes-preserve-unknown-fields: true
+              traits:
+                items:
+                  properties:
+                    name:
+                      type: string
+                    properties:
+                      type: object
+                      x-kubernetes-preserve-unknown-fields: true
+                  required:
+                  - name
+                  type: object
+                type: array
+              type:
                 type: string
+            required:
+            - type
             type: object
           status:
             description: ComponentStatus defines the observed state of Component
+            properties:
+              conditions:
+                items:
+                  type: object
+                type: array
+              message:
+                type: string
+              phase:
+                type: string
+              reason:
+                type: string
             type: object
         type: object
     served: true
