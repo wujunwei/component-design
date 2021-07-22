@@ -22,10 +22,6 @@ import (
 )
 
 const (
-	StatefulSet = "statefulset"
-	Deployment  = "deployment"
-	CloneSet    = "cloneset"
-
 	ComponentInstalled  ComponentPhase = "installed"
 	ComponentFail       ComponentPhase = "failed"
 	ComponentProcessing ComponentPhase = "processing"

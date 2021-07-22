@@ -24,11 +24,19 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
+type WorkLoadType string
+
+const (
+	Deployment  WorkLoadType = "deployment"
+	StatefulSet WorkLoadType = "statefulSet"
+	CloneSet    WorkLoadType = "cloneSet"
+)
+
 type Workload struct {
-	//WorkloadType 'deployment' by default
-	WorkloadType   string `json:"type,omitempty"`
-	Replicas       *int32 `json:"replicas,omitempty" `
-	UpdateStrategy string `json:"updatestrategy"`
+	//Type 'deployment' by default
+	Type           WorkLoadType `json:"type,omitempty"`
+	Replicas       *int32       `json:"replicas,omitempty" `
+	UpdateStrategy string       `json:"updatestrategy"`
 	// Template describes the pods that will be created.
 	Template v1.PodTemplateSpec `json:"template" protobuf:"bytes,3,opt,name=template"`
 }

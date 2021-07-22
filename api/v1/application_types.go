@@ -23,16 +23,23 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-type ComponentTemplate struct {
-	Name          string `json:"name"`
-	ComponentSpec `json:",inline"`
+// ComponentReference represents a component Reference. It has enough information to retrieve secret
+// in any namespace
+type ComponentReference struct {
+	// Name is unique within a namespace to reference a component resource.
+	// +optional
+	Name string `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
+	// Namespace defines the space within which the component name must be unique.
+	// +optional
+	Namespace string `json:"namespace,omitempty" protobuf:"bytes,2,opt,name=namespace"`
 }
 
 // ApplicationSpec defines the desired state of Application
 type ApplicationSpec struct {
 	//MainComponent show the name of the main component of this application
-	MainComponent string              `json:"main,omitempty"`
-	Components    []ComponentTemplate `json:"components,omitempty"`
+	MainComponent string `json:"main,omitempty"`
+	//Components is the array of components reference
+	Components []ComponentReference `json:"components,omitempty"  patchStrategy:"merge" patchMergeKey:"name"`
 }
 
 // ApplicationStatus defines the observed state of Application
