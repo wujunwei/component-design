@@ -35,7 +35,7 @@ rules:
 - apiGroups:
   - design.design.component.io
   resources:
-  - componentdefines
+  - componentproviders
   verbs:
   - create
   - delete
@@ -47,13 +47,13 @@ rules:
 - apiGroups:
   - design.design.component.io
   resources:
-  - componentdefines/finalizers
+  - componentproviders/finalizers
   verbs:
   - update
 - apiGroups:
   - design.design.component.io
   resources:
-  - componentdefines/status
+  - componentproviders/status
   verbs:
   - get
   - patch

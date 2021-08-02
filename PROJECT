@@ -28,7 +28,7 @@ resources:
   controller: true
   domain: design.component.io
   group: design
-  kind: ComponentDefine
+  kind: ComponentProvider
   path: github.co/wujunwei/component-design/api/v1
   version: v1
 version: "3"

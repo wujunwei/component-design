@@ -6,20 +6,20 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.4.1
   creationTimestamp: null
-  name: componentdefines.design.design.component.io
+  name: componentproviders.design.design.component.io
 spec:
   group: design.design.component.io
   names:
-    kind: ComponentDefine
-    listKind: ComponentDefineList
-    plural: componentdefines
-    singular: componentdefine
+    kind: ComponentProvider
+    listKind: ComponentProviderList
+    plural: componentproviders
+    singular: componentprovider
   scope: Namespaced
   versions:
   - name: v1
     schema:
       openAPIV3Schema:
-        description: ComponentDefine is the Schema for the componentdefines API
+        description: ComponentProvider is the Schema for the componentproviders API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -34,7 +34,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ComponentDefineSpec defines the desired state of ComponentDefine
+            description: ComponentProviderSpec defines the desired state of ComponentProvider
             properties:
               selector:
                 additionalProperties:
@@ -6612,7 +6612,7 @@ spec:
             - workload
             type: object
           status:
-            description: ComponentDefineStatus defines the observed state of ComponentDefine
+            description: ComponentProviderStatus defines the observed state of ComponentProvider
             type: object
         type: object
     served: true

@@ -37,14 +37,16 @@ type Trait struct {
 
 // ComponentSpec defines the desired state of Component
 type ComponentSpec struct {
-	ComponentType string `json:"type"`
+	ComponentType string   `json:"type"`
+	Tags          []string `json:"tags"`
 	// +kubebuilder:pruning:PreserveUnknownFields
 	Properties runtime.RawExtension `json:"properties,omitempty"`
 	// +kubebuilder:pruning:PreserveUnknownFields
-	TemplateInfo runtime.RawExtension `json:"template,omitempty"`
-	Traits       []Trait              `json:"traits,omitempty"`
+	//TemplateInfo runtime.RawExtension `json:"template,omitempty"`
+	Traits []Trait `json:"traits,omitempty"`
 }
 
+//todo add componentdefine
 type ComponentCondition struct {
 }
 

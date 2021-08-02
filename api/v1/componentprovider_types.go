@@ -46,15 +46,15 @@ type Service struct {
 	ExternalName string           `json:"externalIPs,omitempty"`
 }
 
-// ComponentDefineSpec defines the desired state of ComponentDefine
-type ComponentDefineSpec struct {
+// ComponentProviderSpec defines the desired state of ComponentProvider
+type ComponentProviderSpec struct {
 	Workload Workload          `json:"workload"`
 	Service  Service           `json:"service"`
 	Selector map[string]string `json:"selector,omitempty"`
 }
 
-// ComponentDefineStatus defines the observed state of ComponentDefine
-type ComponentDefineStatus struct {
+// ComponentProviderStatus defines the observed state of ComponentProvider
+type ComponentProviderStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 }
@@ -62,24 +62,24 @@ type ComponentDefineStatus struct {
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
 
-// ComponentDefine is the Schema for the componentdefines API
-type ComponentDefine struct {
+// ComponentProvider is the Schema for the componentproviders API
+type ComponentProvider struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   ComponentDefineSpec   `json:"spec,omitempty"`
-	Status ComponentDefineStatus `json:"status,omitempty"`
+	Spec   ComponentProviderSpec   `json:"spec,omitempty"`
+	Status ComponentProviderStatus `json:"status,omitempty"`
 }
 
 //+kubebuilder:object:root=true
 
-// ComponentDefineList contains a list of ComponentDefine
-type ComponentDefineList struct {
+// ComponentProviderList contains a list of ComponentProvider
+type ComponentProviderList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []ComponentDefine `json:"items"`
+	Items           []ComponentProvider `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&ComponentDefine{}, &ComponentDefineList{})
+	SchemeBuilder.Register(&ComponentProvider{}, &ComponentProviderList{})
 }

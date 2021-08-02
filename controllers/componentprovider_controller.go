@@ -27,26 +27,26 @@ import (
 	designv1 "github.co/wujunwei/component-design/api/v1"
 )
 
-// ComponentDefineReconciler reconciles a ComponentDefine object
-type ComponentDefineReconciler struct {
+// ComponentProviderReconciler reconciles a ComponentProvider object
+type ComponentProviderReconciler struct {
 	client.Client
 	Scheme *runtime.Scheme
 }
 
-//+kubebuilder:rbac:groups=design.design.component.io,resources=componentdefines,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=design.design.component.io,resources=componentdefines/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=design.design.component.io,resources=componentdefines/finalizers,verbs=update
+//+kubebuilder:rbac:groups=design.design.component.io,resources=componentproviders,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=design.design.component.io,resources=componentproviders/status,verbs=get;update;patch
+//+kubebuilder:rbac:groups=design.design.component.io,resources=componentproviders/finalizers,verbs=update
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
 // TODO(user): Modify the Reconcile function to compare the state specified by
-// the ComponentDefine object against the actual cluster state, and then
+// the ComponentProvider object against the actual cluster state, and then
 // perform operations to make the cluster state reflect the state specified by
 // the user.
 //
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.8.3/pkg/reconcile
-func (r *ComponentDefineReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+func (r *ComponentProviderReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	_ = log.FromContext(ctx)
 
 	// your logic here
@@ -55,8 +55,8 @@ func (r *ComponentDefineReconciler) Reconcile(ctx context.Context, req ctrl.Requ
 }
 
 // SetupWithManager sets up the controller with the Manager.
-func (r *ComponentDefineReconciler) SetupWithManager(mgr ctrl.Manager) error {
+func (r *ComponentProviderReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&designv1.ComponentDefine{}).
+		For(&designv1.ComponentProvider{}).
 		Complete(r)
 }
