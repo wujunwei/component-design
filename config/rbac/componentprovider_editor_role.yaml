@@ -1,13 +1,13 @@
-# permissions for end users to edit componentdefines.
+# permissions for end users to edit componentproviders.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: componentdefine-editor-role
+  name: componentprovider-editor-role
 rules:
 - apiGroups:
   - design.design.component.io
   resources:
-  - componentdefines
+  - componentproviders
   verbs:
   - create
   - delete
@@ -19,6 +19,6 @@ rules:
 - apiGroups:
   - design.design.component.io
   resources:
-  - componentdefines/status
+  - componentproviders/status
   verbs:
   - get

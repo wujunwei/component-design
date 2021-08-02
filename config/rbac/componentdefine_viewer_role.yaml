@@ -1,13 +1,13 @@
-# permissions for end users to view componentproviders.
+# permissions for end users to view componentdefines.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: componentprovider-viewer-role
+  name: componentdefine-viewer-role
 rules:
 - apiGroups:
   - design.design.component.io
   resources:
-  - componentproviders
+  - componentdefines
   verbs:
   - get
   - list
@@ -15,6 +15,6 @@ rules:
 - apiGroups:
   - design.design.component.io
   resources:
-  - componentproviders/status
+  - componentdefines/status
   verbs:
   - get

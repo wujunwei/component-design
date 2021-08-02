@@ -1,27 +1,7 @@
 apiVersion: design.design.component.io/v1
-kind: ComponentProvider
+kind: ComponentDefine
 metadata:
-  name: helm # 组件部署的类型，还可能是raw,see kustomize
+  name: componentdefine-sample
 spec:
-  workload:
-    type: deployment # 可选的值：statefulSet daemonSet  cloneSet
-    replicas: 1
-    updatestrategy: rollingupdate
-    template:
-      name: helm-deployment
-      spec:
-        containers:
-          - name: manager
-            image: manager:latest
-          - name: sidecar
-            image: sidecar:latest
-  service:
-    ports:
-      - name: service-port
-        port: 80
-        targetPort: 80
-    type: nodePort
-    ExternalName: baidu.com
-
-  selector: # 将作用于service 和 具体部署的selector上
-    design.design.component.io/type: helm
+  # Add fields here
+  foo: bar
