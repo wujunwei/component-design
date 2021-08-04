@@ -28,8 +28,20 @@ type ComponentDefineSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of ComponentDefine. Edit componentdefine_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Repo     Repository `json:"repo"`
+	Provider string     `json:"provider"`
+}
+
+type Repository struct {
+	Scheme string `json:"scheme"`
+	Host   string `json:"host"`
+	URI    string `json:"uri"`
+	Auth   `json:",omitempty,inline"`
+}
+type Auth struct {
+	User      string `json:"user"`
+	Password  string `json:"password"`
+	BasicAuth string `json:"basic_auth"`
 }
 
 // ComponentDefineStatus defines the observed state of ComponentDefine
