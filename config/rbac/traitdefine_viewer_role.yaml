@@ -1,0 +1,20 @@
+# permissions for end users to view traitdefines.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: traitdefine-viewer-role
+rules:
+- apiGroups:
+  - design.design.component.io
+  resources:
+  - traitdefines
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - design.design.component.io
+  resources:
+  - traitdefines/status
+  verbs:
+  - get
