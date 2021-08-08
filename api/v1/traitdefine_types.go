@@ -18,6 +18,7 @@ package v1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
@@ -25,11 +26,12 @@ import (
 
 // TraitDefineSpec defines the desired state of TraitDefine
 type TraitDefineSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of TraitDefine. Edit traitdefine_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// ApplyFor is the suitable type of component for this trait
+	ApplyFor []string `json:"apply_for"`
+	//Properties is the values overriding for helm package
+	// +kubebuilder:pruning:PreserveUnknownFields
+	Properties runtime.RawExtension `json:"properties,omitempty"`
 }
 
 // TraitDefineStatus defines the observed state of TraitDefine
