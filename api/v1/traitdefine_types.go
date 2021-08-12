@@ -31,6 +31,8 @@ type TraitDefineSpec struct {
 	//Properties is the template  for helm package the values will be rendered by component ‘s values combined trait's values
 	// +kubebuilder:pruning:PreserveUnknownFields
 	Templates []TraitTemplate `json:"templates,omitempty"`
+
+	IsPatch bool `json:"is_patch"`
 }
 
 type TraitTemplate struct {
