@@ -18,7 +18,6 @@ package v1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
@@ -29,9 +28,14 @@ type TraitDefineSpec struct {
 
 	// ApplyFor is the suitable type of component for this trait
 	ApplyFor []string `json:"apply_for"`
-	//Properties is the values overriding for helm package
+	//Properties is the template  for helm package the values will be rendered by component ‘s values combined trait's values
 	// +kubebuilder:pruning:PreserveUnknownFields
-	Properties runtime.RawExtension `json:"properties,omitempty"`
+	Templates []TraitTemplate `json:"templates,omitempty"`
+}
+
+type TraitTemplate struct {
+	FileName string `json:"file_name"`
+	Content  string `json:"content"`
 }
 
 // TraitDefineStatus defines the observed state of TraitDefine
