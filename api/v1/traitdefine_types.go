@@ -28,8 +28,7 @@ type TraitDefineSpec struct {
 
 	// ApplyFor is the suitable type of component for this trait
 	ApplyFor []string `json:"apply_for"`
-	//Properties is the template  for helm package the values will be rendered by component ‘s values combined trait's values
-	// +kubebuilder:pruning:PreserveUnknownFields
+	//Templates is the template  for helm package the values will be rendered by component ‘s values combined trait's values
 	Templates []TraitTemplate `json:"templates,omitempty"`
 
 	IsPatch bool `json:"is_patch"`
